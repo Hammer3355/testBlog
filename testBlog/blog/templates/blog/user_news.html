@@ -1,0 +1,69 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>Все статьи от автора: {{ view.kwargs.username }}</h2>
+    <h4>Всего статей: {{ page_obj.paginator.count }}</h4>
+
+    {% for post in news %}
+    <div class="alert alert-light">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.text|striptags|truncatechars:200 }}</p>
+        <div class="row">
+            
+            <div class="mt-2">
+                <span class="text-muted">Публикация {{ post.date|date:"d E Y, в H:i" }}</span>
+            <p><b>Автор: </b><a href="{% url 'user-news' post.avtor %}">{{ post.avtor }}</a></p>
+            <a href="{% url 'news-detail' post.id %}" class="btn btn-outline-warning">Читать далее</a>
+            </div>
+            <div>
+                <img src="{{ post.avtor.profile.img.url }}" alt="{{ post.avtor }}" class="user_images mt-3">
+            </div>
+        </div>
+        
+    </div>
+    {% endfor %}
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a href="{% url 'home' %}" class="btn btn-outline-dark">Начало</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-dark"><<</a>
+            {% endif %}
+
+            {% for num in paginator.page_range %}
+                {% if num == page_obj.number %}
+                <button class="btn btn-danger">{{ num }}</button>
+                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                <a href="?page={{ num }}" class="btn btn-outline-dark">{{ num }}</a>
+                
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-dark">>></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-dark">Последняя</a>
+        {% endif %}
+
+    {% endif %}
+    {% endblock %}
+
+    {% block aside_block %}
+    <h4 class="mt-2">Интересные статьи</h4>
+
+<img src="https://itproger.com/img/tasks/x1712923827.jpg.pagespeed.ic.BuZBtdnxNh.webp" class="img-thumbnail" alt="Верстка сайта">
+<p>Четыре человека находятся на одной стороне моста ночью, и им нужно перейти на другую сторону. Из доступных средств у них есть только один фонарик, без которого переход через мост невозможен. Мост достаточно узкий, поэтому по нему могут идти не более двух человек одновременно. У каждого человека разная скорость перехода: первому нужно 1 минуту, второму - 3 минуты, третьему - 6 минут, четвертому - 8 минут. Когда двое идут вместе, они двигаются со скоростью самого медленного.</p>
+<a href="https://itproger.com/tasks/zadacha-na-logiku-most-i-fonarik" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+
+<img src="https://itproger.com/img/courses/x1538723047.jpg.pagespeed.ic.L-HfIUPTfz.webp" class="img-thumbnail mt-4" alt="Верстка сайта">
+<p>Логические головоломки - отличный способ тренировать ум и развивать аналитические навыки. Сегодня мы рассмотрим интересную задачу, которая требует применения стратегического мышления и планирования.Задача касается четырех человек, моста и одного фонарика. Вам предстоит разработать стратегию, позволяющую всем четырем перейти через мост за минимальное время.</p>
+<a href="https://itproger.com/tasks/zadacha-na-logiku-most-i-fonarik" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+{% endblock %}
+

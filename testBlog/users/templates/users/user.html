@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    Страница авторизации
+{% endblock %}
+
+{% block content %}
+    <h1>Страница авторизации</h1>
+    <form method="post" class="form-register auth">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-warning" type="submit">Войти</button>
+        <hr>
+        <p>Забыли парль? <a href="{% url 'pass-reset' %}">Получить новый</a></p>
+    </form>
+    
+{% endblock %}
+
+{% block aside_block %}
+    <h4 class="mt-2">Интересные статьи</h4>
+<img src="https://itproger.com/img/courses/x1538723047.jpg.pagespeed.ic.L-HfIUPTfz.webp" class="img-thumbnail" alt="Верстка сайта">
+<p>Логические головоломки - отличный способ тренировать ум и развивать аналитические навыки. Сегодня мы рассмотрим интересную задачу, которая требует применения стратегического мышления и планирования.Задача касается четырех человек, моста и одного фонарика. Вам предстоит разработать стратегию, позволяющую всем четырем перейти через мост за минимальное время.</p>
+<a href="https://itproger.com/tasks/zadacha-na-logiku-most-i-fonarik" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+
+<img src="https://itproger.com/img/tasks/x1712923827.jpg.pagespeed.ic.BuZBtdnxNh.webp" class="img-thumbnail mt-4" alt="Верстка сайта">
+<p>Четыре человека находятся на одной стороне моста ночью, и им нужно перейти на другую сторону. Из доступных средств у них есть только один фонарик, без которого переход через мост невозможен. Мост достаточно узкий, поэтому по нему могут идти не более двух человек одновременно. У каждого человека разная скорость перехода: первому нужно 1 минуту, второму - 3 минуты, третьему - 6 минут, четвертому - 8 минут. Когда двое идут вместе, они двигаются со скоростью самого медленного.</p>
+<a href="https://itproger.com/tasks/zadacha-na-logiku-most-i-fonarik" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+{% endblock %}
+
